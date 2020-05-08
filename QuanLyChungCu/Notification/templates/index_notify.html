@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block extends %}
+    <h1>Thong bao toi: {{ user.get_full_name }}</h1>
+<br>
+
+{% if notify %}
+    {% for no in notify %}
+        <div class="media">
+            <div class="media-body">
+                <h5 class="mt-0"><a href="">{{ no. }}</a></h5>
+                {{ a | truncatechars:50 }}
+            </div>
+        </div>
+    {% endfor %}
+{% else %}
+    <div class="alert alert-danger" role="alert">
+          Khong co thong bao nao..!
+    </div>
+{% endif %}
+
+{% endblock %}
