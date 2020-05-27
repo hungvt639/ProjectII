@@ -1,0 +1,26 @@
+{% extends "base_manage.html" %}
+{% block title %} Thông báo {% endblock %}
+{% block extends %}
+<main role="main" class="container">
+    <div class="my-3 p-3 bg-white rounded shadow-sm">
+        <h1 class="border-bottom border-gray pb-2 mb-0">Thông báo:</h1>
+        <hr>
+        {% if notify %}
+            <h4>Tiêu đề:</h4>
+            <p class="text-left">{{ notify.notify_id }}</p><hr>
+            <h4>Thời gian gửi:</h4>
+            <p class="text-left">{{ notify.updated_at }}</p><hr>
+            <h4>Nội dung:</h4>
+            <p class="text-left">{{ notify.notify_id.content }}</p>
+        {% else %}
+        <div class="alert alert-danger" role="alert">
+            Không có thông báo này!
+        </div>
+        {% endif %}
+
+        <a href="{% url 'index_notify' %}" >
+            <button style="float: right" type="submit" class="btn btn-primary">Quay lại</button>
+        </a>
+    </div>
+</main>
+{% endblock %}

@@ -1,0 +1,30 @@
+{% extends "base_manage.html" %}
+{% block title %} Sửa thông tin cá nhân {% endblock %}
+{% block extends %}
+<main role="main" class="container">
+    <div class="my-3 p-3 bg-white rounded shadow-sm">
+        <h4 class="border-bottom border-gray pb-2 mb-0">Sửa thông tin cá nhân:</h4>
+        <br>
+        <form method="post">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="firstname">First Name</label>
+                <input type="text" name="firstname" value="{{ user.first_name }}" class="form-control" id="firstname" required>
+            </div>
+            <div class="form-group">
+                <label for="lastname">Last Name</label>
+                <input type="text" name="lastname" value="{{ user.last_name }}" class="form-control" id="lastname" required>
+            </div>
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="text" name="email" value="{{ user.email }}" class="form-control" id="email" required>
+            </div>
+
+            <div style="float: right">
+                <button type="submit"  class="btn btn-primary">Sửa</button>
+            </div>
+
+        </form>
+    </div>
+</main>
+{% endblock %}

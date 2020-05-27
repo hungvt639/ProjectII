@@ -45,3 +45,25 @@ class Register(View):
                     return render(request, 'register.html', {'errors':errors})
         except Exception as e:
             raise e
+        
+
+class Profile(LoginRequiredMixin, View):
+    def get(self, request):
+        return render(request, "view_profile.html")
+
+
+class EditProfile(LoginRequiredMixin, View):
+    def get(self,request):
+        return render(request, "edit_profile.html")
+
+
+    def post(self, request):
+        try:
+            user = User.objects.get(pk=request.user.id)
+            user.first_name = request.POST['firstname']
+            user.last_name = request.POST['lastname']
+            user.email = request.POST['email']
+            user.save()
+            return redirect('profile')
+        except Exception as e:
+            raise e

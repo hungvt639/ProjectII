@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block title %} Thông tin cá nhân {% endblock %}
+{% block extends %}
+<main role="main" class="container">
+    <div class="my-3 p-3 bg-white rounded shadow-sm">
+        <h4 class="border-bottom border-gray pb-2 mb-0">Xin chào: </h4>
+        <a href="{% url 'edit_profile' %}">
+            <button formaction="new" class="btn btn-primary" style="float: right ">Sửa</button>
+        </a>
+        <br>
+
+        <br>
+            <p>Họ-tên: {{ user.get_full_name }}</p>
+            <p>Email: {{ user.email }}</p>
+            <p></p>
+    </div>
+</main>
+
+{% endblock %}

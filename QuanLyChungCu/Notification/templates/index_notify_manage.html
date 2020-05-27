@@ -1,13 +1,35 @@
 {% extends "base_manage.html" %}
+{% block title %}
+Thông báo
+{% endblock %}
 {% block extends %}
-    <h1>Hello manage1: {{ user.get_full_name }}</h1>
-<br>
-<div class="media">
-  <div class="media-body">
-    <h5 class="mt-0">Top-aligned media</h5>
-    <p>Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.</p>
-    <p>Donec sed odio dui. Nullam quis risus eget urna mollis ornare vel eu leo. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.</p>
-  </div>
-</div>
-
+<main role="main" class="container">
+    <div class="my-3 p-3 bg-white rounded shadow-sm">
+        <h6 class="border-bottom border-gray pb-2 mb-0">Danh sách thông báo:
+            <a href="{% url 'new_notify' %}">
+                <button formaction="new" class="btn btn-primary" style="float: right; margin-top: -18px ">Tạo mới</button>
+            </a>
+        </h6>
+        {% if notify %}
+            {% for no in notify %}
+                <div class="media text-muted pt-3">
+                    <p class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
+                        <strong class="d-block text-gray-dark">
+                            <a style="font-size: 18px" href="{% url 'send_notify' no.id %}">{{ no.heading | truncatechars:100 }}</a>
+                            <a href="{% url 'delete_notify' no.id %}">
+                                <button formaction="new" class="btn btn-primary" style="float: right; margin-top: 10px ;margin-left: 20px">Xóa</button></a>
+                            <a href="{% url 'edit_notify' no.id %}">
+                                <button formaction="new" class="btn btn-primary" style="float: right; margin-top: 10px ;margin-left: 20px">Sửa</button></a>
+                        </strong>
+                        {{ no.content | truncatechars:150 }}
+                    </p>
+                </div>
+            {% endfor %}
+        {% else %}
+            <div class="alert alert-danger" role="alert">
+                Khong co thong bao nao..!
+            </div>
+        {% endif %}
+    </div>
+</main>
 {% endblock %}
