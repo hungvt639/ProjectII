@@ -48,14 +48,15 @@ class Register(View):
         
 
 class Profile(LoginRequiredMixin, View):
+
     def get(self, request):
         return render(request, "view_profile.html")
 
 
 class EditProfile(LoginRequiredMixin, View):
+
     def get(self,request):
         return render(request, "edit_profile.html")
-
 
     def post(self, request):
         try:

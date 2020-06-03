@@ -7,13 +7,11 @@ class Service(models.Model):
     admin = models.ForeignKey(User, on_delete=models.CASCADE)
     name = models.CharField(max_length=1000)
     status = models.BooleanField(default=True)
-
-
-class Price_List(models.Model):
-    service = models.ForeignKey(Service, on_delete=models.CASCADE)
-    cost = models.FloatField()
+    cost = models.FloatField()  # gia
+    coefficient = models.FloatField()  # he so
     note = models.TextField(max_length=1000)
-    coefficient = models.FloatField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
 
 class History(models.Model):
@@ -22,6 +20,9 @@ class History(models.Model):
     service = models.ForeignKey(Service, on_delete=models.CASCADE)
     amount = models.IntegerField() #tong tien
     cashier = models.ForeignKey(User, on_delete=models.CASCADE) #thu ngan
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
 
 
 

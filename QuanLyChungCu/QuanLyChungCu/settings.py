@@ -39,7 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'Profile',
     'Notification',
-    'Service'
+    'Service',
+    'Room',
 ]
 
 MIDDLEWARE = [
