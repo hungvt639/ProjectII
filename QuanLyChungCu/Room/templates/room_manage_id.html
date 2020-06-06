@@ -4,8 +4,11 @@
 <main role="main" class="container">
     <div class="my-3 p-3 bg-white rounded shadow-sm">
         {% if room %}
-            <h1 class="border-bottom border-gray pb-2 mb-0">Phòng: {{room}}</h1>
-            <hr>
+            <h1 class="border-bottom border-gray pb-2 mb-0">Phòng: {{room}}
+                <a href="{% url 'edit_room' room.id %}">
+                    <button formaction="new" class="btn btn-primary" style="float: right; ">Sửa</button>
+                </a>
+            </h1><hr>
             <h4>Tòa nhà:</h4>
             <p class="text-left">{{ room.building }}</p>
             <hr>

@@ -1,0 +1,33 @@
+{% extends "base_manage.html" %}
+{% block title %} Thêm dịch vụ {% endblock %}
+{% block extends %}
+<main role="main" class="container">
+    <div class="my-3 p-3 bg-white rounded shadow-sm">
+        <h4 class="border-bottom border-gray pb-2 mb-0">Thêm dịch vụ:</h4>
+        <br>
+        <form method="post">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="name">Tên dịch vụ</label>
+                <input type="text" name="name" class="form-control" id="name" placeholder="Name">
+            </div>
+            <div class="form-group">
+                <label for="cost">Giá:</label>
+                <input type="number" name="cost" class="form-control" id="cost" placeholder="Cost">
+            </div>
+            <div class="form-group">
+                <label for="coefficient">Hệ số:</label>
+                <input type="number" step="0.1" name="coefficient" value="1" class="form-control" id="coefficient" placeholder="Coefficient">
+            </div>
+            <div class="form-group">
+                <label for="note">Ghi chú:</label>
+                <textarea class="form-control" name="note" id="note" rows="5"></textarea>
+            </div>
+            <div style="float: right">
+                <button type="submit"  class="btn btn-primary">Tạo mới</button>
+            </div>
+        </form>
+    </div>
+</main>
+
+{% endblock %}
