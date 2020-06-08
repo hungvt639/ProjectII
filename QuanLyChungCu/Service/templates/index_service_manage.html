@@ -5,24 +5,24 @@ Dịch vụ
 {% block extends %}
 <main role="main" class="container">
     <div class="my-3 p-3 bg-white rounded shadow-sm">
-        <h6 class="border-bottom border-gray pb-2 mb-0">Danh sách dịch vụ:
+        <h1 class="border-bottom border-gray pb-2 mb-0">Danh sách dịch vụ:
             <a href="{% url 'new_service' %}">
                 <button formaction="new" class="btn btn-primary" style="float: right; margin-top: -18px ">Tạo mới</button>
             </a>
-        </h6>
+        </h1>
         {% if services %}
             {% for se in services %}
                 <div class="media text-muted pt-3">
                     <p class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
                         <strong class="d-block text-gray-dark">
                             {% if se.status %}
-                                <a style="font-size: 18px" href="">{{ se.name | truncatechars:100 }}</a>
+                                <a style="font-size: 18px" href="{% url 'show_service' se.id %}">{{ se.name | truncatechars:100 }}</a>
                             {% else %}
-                            <a style="font-size: 18px" href=""><i>{{ se.name | truncatechars:100 }}</i></a>
+                                <a style="font-size: 18px; color:grey" href="{% url 'show_service' se.id %}"><i>{{ se.name | truncatechars:100 }}</i></a>
                             {% endif %}
-                            <a href="">
+                            <a href="{% url 'delete_service' se.id %}">
                                 <button formaction="new" class="btn btn-primary" style="float: right; margin-top: 10px ;margin-left: 20px">Xóa</button></a>
-                            <a href="">
+                            <a href="{% url 'edit_service' se.id %}">
                                 <button formaction="new" class="btn btn-primary" style="float: right; margin-top: 10px ;margin-left: 20px">Sửa</button></a>
                         </strong>
                         {{ se.cost }} đồng/ngày

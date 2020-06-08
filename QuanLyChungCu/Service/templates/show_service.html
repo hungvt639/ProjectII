@@ -1,0 +1,44 @@
+{% extends "base_manage.html" %}
+{% block title %} Dịch vụ {% endblock %}
+{% block extends %}
+<main role="main" class="container">
+    <div class="my-3 p-3 bg-white rounded shadow-sm">
+        {% if service %}
+            <h1 class="border-bottom border-gray pb-2 mb-0">Dịch vụ: {{service}}
+                {% if service.status %}
+                <a href="{% url 'register_service' service.id %}">
+                    <button formaction="new" class="btn btn-primary" style="float: right; margin-top: -18px ">Đăng ký</button>
+                </a>
+                {% endif %}
+            </h1>
+            <hr>
+            <h4>Tên dịch vụ:</h4>
+            <p class="text-left">{{ service.name }}</p>
+            <hr>
+            <h4>Giá:</h4>
+            <p class="text-left">{{ service.cost }} đồng/ngày</p>
+            <hr>
+            <h4>Hệ số:</h4>
+            <p class="text-left">{{ service.coefficient }} </p>
+            <hr>
+            <h4>Ghi chú:</h4>
+            <p class="text-left">{{ service.note }}</p>
+            <hr>
+            <h4>Trạng thái:</h4>
+            {% if service.status %}
+                <p class="text-left">Còn cung cấp</p>
+            {% else %}
+                <p class="text-left">Không cung cấp</p>
+            {% endif %}
+            <hr>
+        {% else %}
+            <div class="alert alert-danger" role="alert">
+                Không có dịch vụ này!
+            </div>
+        {% endif %}
+        <a href="{% url 'index_service' %}">
+            <button style="float: right" type="submit" class="btn btn-primary">Quay lại</button>
+        </a>
+    </div>
+</main>
+{% endblock %}

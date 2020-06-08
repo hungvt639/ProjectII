@@ -5,7 +5,7 @@
     <div class="my-3 p-3 bg-white rounded shadow-sm">
         {% if room %}
         <h1 class="border-bottom border-gray pb-2 mb-0">Phòng: {{room}}
-            <a href="{% url 'index_view' %}">
+            <a href="{% url 'room' room.id %}">
                 <button style="float: right" type="submit" class="btn btn-primary">Quay lại</button>
             </a></h1>
         <hr>
@@ -18,29 +18,26 @@
             <h4>Đia chỉ:</h4>
             <p class="text-left">{{ room.address }}</p>
             <hr>
-            <div class="form-group">
-                <label for="area">Diện tích:</label>
-                <input type="number" step="0.01" name="area" value="{{ room.area }}" class="form-control" id="area" placeholder="Area"
-                       required>
-            </div>
+            <h4>Diện tích:</h4>
+            <p class="text-left">{{ room.area }}</p>
             <hr>
-            <div class="form-group">
-                <label for="number_bedrooms">Số phòng ngủ:</label>
-                <input type="number" name="number_bedrooms" value="{{ room.number_bedrooms }}" class="form-control"
-                       id="number_bedrooms" placeholder="Number Bedrooms" required>
-            </div>
+            <h4>Số phòng ngủ:</h4>
+            <p class="text-left">{{ room.number_bedrooms }}</p>
             <hr>
+            <h4>Thành viên:</h4>
+            {% for m in member %}
+                <p class="text-left">{{ m.user.get_full_name }}</p>
+                {% endfor %}
             <div class="form-group">
-                <label for="room_master">Chủ phòng:</label>
-                <select class="form-control" id="room_master" name="room_master">
-                    <option value="{{room.room_master.id}}">{{room.room_master.get_full_name}}</option>
-                    {% for u in users %}
+                <label for="member"></label>
+                <select class="form-control" id="member" name="member">
+                           {% for u in users %}
                     <option value="{{ u.id }}">{{ u.get_full_name }}</option>
                     {% endfor %}
                 </select>
             </div>
             <div style="float: right">
-                <button type="submit" class="btn btn-primary">Sửa</button>
+                <button type="submit" class="btn btn-primary">Thêm thành viên</button>
             </div>
         </form>
         {% else %}

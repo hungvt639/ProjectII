@@ -1,0 +1,29 @@
+{% extends "base_manage.html" %}
+{% block title %}
+Dịch vụ
+{% endblock %}
+{% block extends %}
+<main role="main" class="container">
+    <div class="my-3 p-3 bg-white rounded shadow-sm">
+        <h1 class="border-bottom border-gray pb-2 mb-0">Danh sách dịch vụ:</h1>
+        {% if services %}
+            {% for se in services %}
+                <div class="media text-muted pt-3">
+                    <p class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
+                        <strong class="d-block text-gray-dark">
+                                <a style="font-size: 18px" href="{% url 'show_service' se.id %}">{{ se.name | truncatechars:100 }}</a>
+                            <a href="{% url 'register_service' se.id %}">
+                                <button formaction="new" class="btn btn-primary" style="float: right; margin-top: 10px ;margin-left: 20px">Đăng ký</button></a>
+                        </strong>
+                        {{ se.cost }} đồng/ngày
+                    </p>
+                </div>
+            {% endfor %}
+        {% else %}
+            <div class="alert alert-danger" role="alert">
+                Không có dịch vụ nào..!
+            </div>
+        {% endif %}
+    </div>
+</main>
+{% endblock %}

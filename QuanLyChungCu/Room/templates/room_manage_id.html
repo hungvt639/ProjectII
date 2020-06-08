@@ -5,8 +5,11 @@
     <div class="my-3 p-3 bg-white rounded shadow-sm">
         {% if room %}
             <h1 class="border-bottom border-gray pb-2 mb-0">Phòng: {{room}}
+                <a href="{% url 'index_view' %}">
+            <button style="float: right; margin-top: 10px ;margin-left: 20px" type="submit" class="btn btn-primary">Quay lại</button>
+        </a>
                 <a href="{% url 'edit_room' room.id %}">
-                    <button formaction="new" class="btn btn-primary" style="float: right; ">Sửa</button>
+                    <button formaction="new" class="btn btn-primary" style="float: right; margin-top: 10px ;margin-left: 20px">Thêm thành viên</button>
                 </a>
             </h1><hr>
             <h4>Tòa nhà:</h4>
@@ -21,17 +24,34 @@
             <h4>Số phòng ngủ:</h4>
             <p class="text-left">{{ room.number_bedrooms }} phòng</p>
             <hr>
-            <h4>Chủ phòng:</h4>
-            <p class="text-left">{{ room.room_master.get_full_name }}</p>
-            <hr>
+            <h4>Thành viên:</h4>
+            {% for m in member %}
+                <p class="text-left">{{ m.user.get_full_name }}</p>
+            {% endfor %}
+
+        <form method="post">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="member"></label>
+                <select class="form-control" id="member" name="member">
+                           {% for u in member %}
+                    <option value="{{ u.user.id }}">{{ u.user.get_full_name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div style="float: right">
+                <button type="submit" class="btn btn-primary">Xóa thành viên</button>
+            </div>
+        </form>
+
+
+
         {% else %}
             <div class="alert alert-danger" role="alert">
                 Không có phòng này!
             </div>
         {% endif %}
-        <a href="{% url 'index_view' %}">
-            <button style="float: right" type="submit" class="btn btn-primary">Quay lại</button>
-        </a>
+
     </div>
 </main>
 {% endblock %}

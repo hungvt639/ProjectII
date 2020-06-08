@@ -6,26 +6,28 @@
 <main role="main" class="container">
     <div class="my-3 p-3 bg-white rounded shadow-sm">
         {% if room %}
-            <h1 class="border-bottom border-gray pb-2 mb-0">Phòng: {{room}}</h1>
+            <h1 class="border-bottom border-gray pb-2 mb-0">Phòng: {{room.room}}</h1>
             <hr>
             <h4>Tòa nhà:</h4>
-            <p class="text-left">{{ room.building }}</p>
+            <p class="text-left">{{ room.room.building }}</p>
             <hr>
             <h4>Đia chỉ:</h4>
-            <p class="text-left">{{ room.address }}</p>
+            <p class="text-left">{{ room.room.address }}</p>
             <hr>
             <h4>Diện tích:</h4>
-            <p class="text-left">{{ room.area }} mét vuông</p>
+            <p class="text-left">{{ room.room.area }} mét vuông</p>
             <hr>
             <h4>Số phòng ngủ:</h4>
-            <p class="text-left">{{ room.number_bedrooms }} phòng</p>
+            <p class="text-left">{{ room.room.number_bedrooms }} phòng</p>
             <hr>
-            <h4>Chủ phòng:</h4>
-            <p class="text-left">{{ room.room_master.get_full_name }}</p>
+            <h4>Thành viên:</h4>
+            {% for m in member %}
+                <p class="text-left">{{ m.user.get_full_name }}</p>
+            {% endfor %}
             <hr>
         {% else %}
             <div class="alert alert-danger" role="alert">
-                Không có phòng này!
+                Bạn không ở trong căn hộ này!
             </div>
         {% endif %}
         <a href="{% url 'index_view' %}">

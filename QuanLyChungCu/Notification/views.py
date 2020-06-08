@@ -53,7 +53,6 @@ class Send_Notify(LoginRequiredMixin, View):
         else:
             return redirect("index_notify")
 
-
     def post(self, request, id):
         if request.user.is_staff:
             try:
@@ -75,6 +74,7 @@ class Send_Notify(LoginRequiredMixin, View):
                 raise e
         else:
             return redirect('index_notify')
+
 
 class Edit_Notify(LoginRequiredMixin, View):
     def get(self, request, id):

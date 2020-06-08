@@ -68,3 +68,7 @@ class EditProfile(LoginRequiredMixin, View):
             return redirect('profile')
         except Exception as e:
             raise e
+
+class sos(View):
+    def get(self, request):
+        return render(request, 'sos.html')
