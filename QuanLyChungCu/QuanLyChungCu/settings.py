@@ -80,15 +80,13 @@ WSGI_APPLICATION = 'QuanLyChungCu.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'Quan_Ly_Chung_Cu',
+        'NAME': 'ProjectII_mysql',
         'USER': 'vhung99tn',
         'PASSWORD': 'Hung123!@#',
         'HOST': 'localhost',
         'PORT': '',
         'default-character-set': 'utf8',
-        'OPTIONS': {
-                    'charset': 'latin1',
-                    'use_unicode': True, },
+
     }
 }
 
