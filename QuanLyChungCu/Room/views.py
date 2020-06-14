@@ -3,11 +3,34 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views import View
 from .models import Rooms, Member_Room
 from django.contrib.auth.models import User
+# import random
 
 
 class Index_Room(LoginRequiredMixin, View):
     def get(self, request):
         if request.user.is_staff:
+
+            # for i in range(1, 28):
+            #     for j in range (1, 12):
+            #         r = Rooms()
+            #         r.building = 'C'
+            #         x=''
+            #         if i < 10:
+            #            x += '0' + str(i)
+            #         elif i==13:
+            #             x+='12A'
+            #         else:
+            #             x+= str(i)
+            #         x+='-'
+            #         if j < 10:
+            #             x += '0' + str(j)
+            #         else:
+            #             x+= str(j)
+            #         r.address = x
+            #         r.area = random.randrange(50, 100, 5)
+            #         r.number_bedrooms=random.randint(1,5)
+            #         r.save()
+
             rooms = Rooms.objects.all().order_by('id')
             return render(request, 'room_manage.html', {'rooms': rooms})
         else:
@@ -16,28 +39,6 @@ class Index_Room(LoginRequiredMixin, View):
             except:
                 room = None
             return render(request, 'room.html', {'room': room})
-
-
-        # for i in range(1, 17):
-        #     for j in range (1, 12):
-        #         r = Rooms()
-        #         r.building = ''
-        #         x=''
-        #         if i < 10:
-        #            x += '0' + str(i)
-        #         elif i==13:
-        #             x+='12A'
-        #         else:
-        #             x+= str(i)
-        #         x+='-'
-        #         if j < 10:
-        #             x += '0' + str(j)
-        #         else:
-        #             x+= str(j)
-        #         r.address = x
-        #         r.area = 80
-        #         r.number_bedrooms=2
-        #         r.save()
 
 
 class Room(LoginRequiredMixin, View):

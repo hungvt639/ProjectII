@@ -36,13 +36,15 @@ class Service_Using(models.Model):
     room = models.ForeignKey(Rooms, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE) #nguoi dang ky
     created_at = models.DateTimeField(auto_now_add=True)  # ngay dang ky
+    note = models.TextField(max_length=1000, blank=True, null=True)
     status_register = models.BooleanField(default=False)
     status_using = models.BooleanField(default=False)
-    time_start = models.DateTimeField()
+    time_start = models.DateTimeField(blank=True, null=True)
     time_end = models.DateTimeField(blank=True, null=True)
 
     def __str__(self):
         return "{0} : {1} ({2})".format(self.service, self.room, self.user)
+
 
 class History(models.Model):
     title = models.TextField(max_length=50)

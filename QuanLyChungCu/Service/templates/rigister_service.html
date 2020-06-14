@@ -1,40 +1,54 @@
-{% extends "base_manage.html" %}
+{% extends "base.html" %}
 {% block title %} Đăng ký dịch vụ {% endblock %}
 {% block extends %}
 <main role="main" class="container">
     <div class="my-3 p-3 bg-white rounded shadow-sm">
-        <h4 class="border-bottom border-gray pb-2 mb-0">Đăng ký dịch vụ:</h4>
-        <br>
+        {% if service %}
+        <h1 class="border-bottom border-gray pb-2 mb-0">Dịch vụ: {{service}}</h1>
+        <hr>
+        <h4>Tên dịch vụ:</h4>
+        <p class="text-left">{{ service.name }}</p>
+        <hr>
+        <h4>Giá:</h4>
+        <p class="text-left">{{ service.cost }}</p>
+        <hr>
+        <h4>Hệ số:</h4>
+        <p class="text-left">{{ service.coefficient }} đồng/ngày</p>
+        <hr>
+        <h4>Ghi chú:</h4>
+        <p class="text-left">{{ service.note }}</p>
+        <hr>
+        <h4>Trạng thái:</h4>
+        {% if service.status %}
+        <p class="text-left">Còn cung cấp</p>
+        {% else %}
+        <p class="text-left">Không cung cấp</p>
+        {% endif %}
+        <hr>
         <form method="post">
             {% csrf_token %}
             <div class="form-group">
-                <label for="name">Tên dịch vụ</label>
-                <input type="text" name="name" value="{{service.name}}" class="form-control" id="name"
-                       placeholder="Name">
-            </div>
-            <div class="form-group">
-                <label for="cost">Giá:</label>
-                <input type="number" name="cost" value="{{service.cost}}" class="form-control" id="cost"
-                       placeholder="Cost">
-            </div>
-            <div class="form-group">
-                <label for="coefficient">Hệ số:</label>
-                <input type="number" step="0.1" name="coefficient" value="{{service.coefficient}}" class="form-control"
-                       id="coefficient" placeholder="Coefficient">
+                <label for="room">Chọn phòng</label>
+                <select class="form-control" id="room" name="room">
+                    {% for r in rooms %}
+                    <option value="{{ r.id }}">{{ r }}</option>
+                    {% endfor %}
+                </select>
             </div>
             <div class="form-group">
                 <label for="note">Ghi chú:</label>
-                <textarea class="form-control" name="note" id="note" rows="5">{{ service.note }}</textarea>
-            </div>
-            <div class="form-group form-check">
-                <label class="form-check-label">
-                    <input class="form-check-input" name="status" {% if service.status %} checked {%endif%} type="checkbox"> Còn cung cấp
-                </label>
+                <textarea class="form-control" name="note" id="note"
+                          rows="10"></textarea>
             </div>
             <div style="float: right">
-                <button type="submit" class="btn btn-primary">Sửa</button>
+                <button type="submit" class="btn btn-primary">Đăng ký</button>
             </div>
         </form>
+        {% else %}
+        <div class="alert alert-danger" role="alert">
+            Không có dịch vụ này!
+        </div>
+        {% endif %}
     </div>
 </main>
 

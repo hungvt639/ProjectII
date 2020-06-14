@@ -56,17 +56,23 @@ class Send_Notify(LoginRequiredMixin, View):
     def post(self, request, id):
         if request.user.is_staff:
             try:
-                notify_user = Notify_User()
                 notify = Notify.objects.get(pk=id)
-                notify_user.notify_id = notify
 
                 id_user = request.POST["user_notify"]
-                if int(id) == 0:
-                    pass
+                if int(id_user) == 0:
+                    noti_user = Notify_User.objects.filter(notify_id=notify)
+                    users = User.objects.filter(is_staff=False).exclude(id__in=noti_user.values_list("id_user", flat=True))
+                    for user in users:
+                        notify_user = Notify_User()
+                        notify_user.notify_id = notify
+                        notify_user.id_user = user
+                        notify_user.save()
                 else:
+                    notify_user = Notify_User()
+                    notify_user.notify_id = notify
                     users = User.objects.get(pk=id_user)
                     notify_user.id_user = users
-                notify_user.save()
+                    notify_user.save()
                 noti_user = Notify_User.objects.filter(notify_id=notify)
                 users = User.objects.filter(is_staff=False).exclude(id__in=noti_user.values_list("id_user", flat=True))
                 return render(request, "send_notify.html", {'noti_user': noti_user, "notify": notify, "users": users})

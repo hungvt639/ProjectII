@@ -1,6 +1,6 @@
-{% extends "base_manage.html" %}
+{% extends "base.html" %}
 {% block title %}
-Thông báo
+    Thông báo
 {% endblock %}
 {% block extends %}
 <main role="main" class="container">
@@ -27,7 +27,7 @@ Thông báo
             {% endfor %}
         {% else %}
             <div class="alert alert-danger" role="alert">
-                Khong co thong bao nao..!
+                Không có thông báo nào..!
             </div>
         {% endif %}
     </div>

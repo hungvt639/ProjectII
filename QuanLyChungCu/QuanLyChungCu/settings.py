@@ -86,7 +86,6 @@ DATABASES = {
         'HOST': 'localhost',
         'PORT': '',
         'default-character-set': 'utf8',
-
     }
 }
 
