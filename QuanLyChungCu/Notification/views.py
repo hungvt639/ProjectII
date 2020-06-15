@@ -128,8 +128,9 @@ class View_notify(LoginRequiredMixin, View):
         else:
             try:
                 notify = Notify_User.objects.filter(id_user=request.user, notify_id=id).first()
-                print(notify)
-                return render(request, "view_notify.html", {'notify': notify})
+                content = notify.notify_id.content.split("\n")
+                print (content)
+                return render(request, "view_notify.html", {'notify': notify, 'content': content})
             except Exception as e:
                 raise e
 

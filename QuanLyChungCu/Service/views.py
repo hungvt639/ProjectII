@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views import View
 from .models import Service, Service_Using
-from ..Notification.models import Notify, Notify_User
+from Notification.models import Notify, Notify_User
 from Room.models import Rooms, Member_Room
 import datetime
 # Create your views here.
@@ -182,28 +182,36 @@ class Activate_Service(LoginRequiredMixin, View):
                 service_using = Service_Using.objects.get(pk=id)
                 service_using.status_register = True
                 service_using.time_start = datetime.datetime.now()
-                if service_using.save():
-                    notify = Notify()
-                    notify.heading = 'Đăng ký sử dụng dịch vụ thành công'
-                    notify.content = """
-                    Dịch vụ {0} của bạn đã được duyệt.
-                    Tên dịch vụ {0}
-                    Phòng {1}
-                    Người đăng ký {2}
-                    Thời gian {3}
-                    """.format(service_using.service, service_using.room, service_using.user.get_full_name(), service_using.time_start)
-                    notify.save()
-                    room = Rooms.objects.get(pk=service_using.room.id)
-                    member = Member_Room.objects.filter(room=room)
-                    users = User.objects.filter(id__in=member.values_list('user', flat=True))
-                    for u in users:
-                        notify_user = Notify_User()
-                        notify_user.id_user = u
-                        notify_user.notify_id = notify
-                        notify_user.save()
-
-            except:
-                return redirect('sos')
+                service_using.save()
+                notify = Notify()
+                notify.manage_id = request.user
+                notify.heading = 'Đăng ký sử dụng dịch vụ thành công'
+                notify.content = """
+                Dịch vụ {0} của bạn đã được duyệt.\n
+                Tên dịch vụ {0}.\n
+                Phòng {1}.\n
+                Người đăng ký {2}.\n
+                Thời gian {3}.\n
+                """.format(service_using.service, service_using.room, service_using.user.get_full_name(), service_using.time_start)
+                notify.save()
+                room = Rooms.objects.get(pk=service_using.room.id)
+                member = Member_Room.objects.filter(room=room)
+                users = User.objects.filter(id__in=member.values_list('user', flat=True))
+                for u in users:
+                    notify_user = Notify_User()
+                    notify_user.id_user = u
+                    notify_user.notify_id = notify
+                    notify_user.save()
+            except Exception as e:
+                raise e
             return redirect('list_register_service')
         else:
             return redirect('sos')
+
+
+class Service_Using(LoginRequiredMixin, View):
+    def get(self, request):
+        if request.user.is_staff:
+            pass
+        else:
+            pass
