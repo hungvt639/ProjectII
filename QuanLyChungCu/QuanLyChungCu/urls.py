@@ -21,5 +21,6 @@ urlpatterns = [
     path('', include('Profile.urls')),
     path('notification/', include('Notification.urls')),
     path('service/', include('Service.urls')),
-    path('room/', include('Room.urls'))
+    path('room/', include('Room.urls')),
+    path('fee/', include('FeeService.urls')),
 ]

@@ -10,11 +10,10 @@ from django.views import View
 class Index_Notify(LoginRequiredMixin, View):
     def get(self, request):
         if request.user.is_staff:
-            notify = Notify.objects.filter(manage_id=request.user.id)
+            notify = Notify.objects.filter(manage_id=request.user.id).order_by("-id")
             return render(request, 'index_notify_manage.html', {"notify": notify})
         else:
-            notify = Notify_User.objects.filter(id_user=request.user.id)
-            print(notify)
+            notify = Notify_User.objects.filter(id_user=request.user.id).order_by("-id")
             return render(request, 'index_notify.html', {"notify": notify})
 
 
@@ -129,7 +128,6 @@ class View_notify(LoginRequiredMixin, View):
             try:
                 notify = Notify_User.objects.filter(id_user=request.user, notify_id=id).first()
                 content = notify.notify_id.content.split("\n")
-                print (content)
                 return render(request, "view_notify.html", {'notify': notify, 'content': content})
             except Exception as e:
                 raise e

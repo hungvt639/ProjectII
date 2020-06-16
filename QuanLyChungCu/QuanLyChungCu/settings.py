@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'Notification',
     'Service',
     'Room',
+    'FeeService',
 ]
 
 MIDDLEWARE = [
