@@ -9,3 +9,8 @@ from Notification.models import Notify, Notify_User
 from Room.models import Rooms, Member_Room
 import datetime
 # Create your views here.
+
+
+class Show_Fee(LoginRequiredMixin, View):
+    def get(self, request):
+        pass
