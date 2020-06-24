@@ -34,11 +34,9 @@ class Index_Room(LoginRequiredMixin, View):
             rooms = Rooms.objects.all().order_by('id')
             return render(request, 'room_manage.html', {'rooms': rooms})
         else:
-            try:
-                room = Rooms.objects.get(room_master = request.user)
-            except:
-                room = None
-            return render(request, 'room.html', {'room': room})
+            room = Member_Room.objects.filter(user=request.user)
+            rooms = Rooms.objects.filter(id__in=room.values_list("room", flat=True))
+            return render(request, 'room.html', {'rooms': rooms})
 
 
 class Room(LoginRequiredMixin, View):

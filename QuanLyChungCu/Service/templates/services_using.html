@@ -5,22 +5,30 @@ Dịch vụ đăng ký
 {% block extends %}
 <main role="main" class="container">
     <div class="my-3 p-3 bg-white rounded shadow-sm">
-        <h1 class="border-bottom border-gray pb-2 mb-0">Danh sách dịch vụ đang sử dụng:</h1>
+        <h1 class="border-bottom border-gray pb-2 mb-0">Danh sách dịch vụ đang sử dụng {%if room%} phòng {{room}} {%endif%}:</h1>
         {% if serviceusing %}
         {% for se in serviceusing %}
         <div class="media text-muted pt-3">
             <p class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
                 <strong class="d-block text-gray-dark">
-                    <a style="font-size: 18px" href="{% url 'show_service' se.id %}">{{ se.service.name | truncatechars:100 }}</a>
-                    <a href="{% url 'stop_service' se.id %}">
-                        <button formaction="new" class="btn btn-primary"
-                                style="float: right; margin-top: 10px ;margin-left: 20px">Dừng
-                        </button>
-                    </a>
+                    {% if se.status_using %}
+                        <a style="font-size: 18px" href="{% url 'show_service' se.id %}">{{ se.service.name | truncatechars:100 }}</a>
+                        <a href="{% url 'stop_service' se.id %}">
+                            <button formaction="new" class="btn btn-primary"
+                                    style="float: right; margin-top: 10px ;margin-left: 20px">Dừng
+                            </button>
+                        </a>
+                    {% else %}
+                        <a style="font-size: 18px;  color:grey" href="{% url 'show_service' se.id %}">{{ se.service.name | truncatechars:100 }}</a>
+                    {% endif %}
                 </strong>
                 {{ se.service.cost }} đồng/ngày
                 <br>
                 Phòng: {{se.room}}
+
+                {% if not se.status_using %}
+                    <br><b>Đang ngừng sử dụng</b>
+                {% endif %}
             </p>
         </div>
         {% endfor %}

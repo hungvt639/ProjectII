@@ -1,4 +1,4 @@
-{% extends "base_manage.html" %}
+{% extends "base.html" %}
     {% block title %}
         Phòng
     {% endblock %}
@@ -7,6 +7,9 @@
     <div class="my-3 p-3 bg-white rounded shadow-sm">
         {% if room %}
             <h1 class="border-bottom border-gray pb-2 mb-0">Phòng: {{room.room}}</h1>
+        <a href="{% url 'services_using' %}?room={{room.room.id}}">
+                <button formaction="new" class="btn btn-primary" style="float: right; margin-top: -50px ">Dịch vụ đang sử dụng</button>
+            </a>
             <hr>
             <h4>Tòa nhà:</h4>
             <p class="text-left">{{ room.room.building }}</p>

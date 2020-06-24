@@ -133,12 +133,13 @@ class Services_Using(LoginRequiredMixin, View):
             member_room = Member_Room.objects.filter(user=request.user)
             try:
                 room = request.GET['room']
+                room = Rooms.objects.get(id=room)
             except:
                 room = None
             if room:
-                member_room.filter(room=room)
-            service_using = Service_Using.objects.filter(status_register=True, status_using=True, room__in=member_room.values_list('room', flat=True)).order_by('room', '-id')
-            return render(request, 'services_using.html', {'serviceusing': service_using})
+                member_room = member_room.filter(room=room)
+            service_using = Service_Using.objects.filter(status_register=True, room__in=member_room.values_list('room', flat=True)).order_by('room', '-id')
+            return render(request, 'services_using.html', {'serviceusing': service_using, 'room':room})
 
 
 class Stop_Service(LoginRequiredMixin, View):
