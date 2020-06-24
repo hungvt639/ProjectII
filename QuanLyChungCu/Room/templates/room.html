@@ -3,10 +3,10 @@
 Danh sách phòng
 {% endblock %}
 {% block extends %}
-<h1>Rooms</h1>
+<h1>Căn hộ</h1>
 <main role="main" class="container">
     <div class="my-3 p-3 bg-white rounded shadow-sm">
-        <h6 class="border-bottom border-gray pb-2 mb-0">Danh sách phòng của bạn:
+        <h6 class="border-bottom border-gray pb-2 mb-0">Danh sách căn hộ của bạn:
         </h6>
         {% if rooms %}
             {% for r in rooms %}
@@ -20,7 +20,7 @@ Danh sách phòng
             {% endfor %}
         {% else %}
             <div class="alert alert-danger" role="alert">
-                Không có phòng nào..!
+                Không có căn hộ nào..!
             </div>
         {% endif %}
     </div>

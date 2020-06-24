@@ -5,7 +5,7 @@ Dịch vụ đăng ký
 {% block extends %}
 <main role="main" class="container">
     <div class="my-3 p-3 bg-white rounded shadow-sm">
-        <h1 class="border-bottom border-gray pb-2 mb-0">Danh sách dịch vụ đang sử dụng {%if room%} phòng {{room}} {%endif%}:</h1>
+        <h1 class="border-bottom border-gray pb-2 mb-0">Danh sách dịch vụ đang sử dụng {%if room%} của căn hộ {{room}} {%endif%}:</h1>
         {% if serviceusing %}
         {% for se in serviceusing %}
         <div class="media text-muted pt-3">

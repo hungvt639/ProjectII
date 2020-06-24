@@ -29,7 +29,7 @@ class Register(View):
             user.username = request.POST['username']
             user.email = request.POST['email']
             if User.objects.filter(Q(username=user.username) | Q(email=user.email)).exists():
-                errors.append('User da ton tai')
+                errors.append('User đã tồn tại')
                 return render(request, 'register.html', {'errors': errors})
             else:
                 password = request.POST['password']
@@ -41,7 +41,7 @@ class Register(View):
                     user.save()
                     return redirect("login")
                 else:
-                    errors.append("Nhap lai mat khau khong hop le..!")
+                    errors.append("Nhập lại mật khẩu không hợp lệ")
                     return render(request, 'register.html', {'errors':errors})
         except Exception as e:
             raise e
@@ -68,6 +68,34 @@ class EditProfile(LoginRequiredMixin, View):
             return redirect('profile')
         except Exception as e:
             raise e
+
+
+class ChangePassword(LoginRequiredMixin, View):
+    def get(self, request):
+        return render(request, 'changepassword.html')
+
+    def post(self, request):
+        errors = []
+        try:
+            oldpassword = request.POST['oldpassword']
+            password = request.POST['password']
+            repassword=request.POST['repassword']
+            if repassword == password:
+                user = User.objects.get(pk=request.user.id)
+                if user.check_password(oldpassword):
+                    user.set_password(password)
+                    user.save()
+                    return redirect('index')
+                else:
+                    errors.append('Nhập sai mật khẩu cũ')
+                    return render(request, 'changepassword.html', {'errors': errors})
+
+            else:
+                errors.append('Mật khẩu mới không khớp')
+                return render(request, 'changepassword.html', {'errors': errors})
+
+        except:
+            return redirect('sos')
 
 class sos(View):
     def get(self, request):

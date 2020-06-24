@@ -5,8 +5,8 @@ Danh sách phòng
 {% block extends %}
 <main role="main" class="container">
     <div class="my-3 p-3 bg-white rounded shadow-sm">
-        <h6 class="border-bottom border-gray pb-2 mb-0">Danh sách phòng:
-        </h6>
+        <h1 class="border-bottom border-gray pb-2 mb-0">Danh sách căn hộ:
+        </h1>
         {% if rooms %}
             {% for r in rooms %}
                 <div class="media text-muted pt-3">
@@ -19,7 +19,7 @@ Danh sách phòng
             {% endfor %}
         {% else %}
             <div class="alert alert-danger" role="alert">
-                Không có phòng nào..!
+                Không có căn hộ nào..!
             </div>
         {% endif %}
     </div>
