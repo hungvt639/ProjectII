@@ -15,6 +15,11 @@
             {% for c in content %}
                 <p class="text-left">{{ c }}</p>
             {% endfor %}
+         {% if notify.notify_id.file %}
+        <hr>
+        <a href="{{notify.notify_id.file}}" target="_blank"><button type="button" class="btn btn-outline-dark">File đính kèm</button></a>
+        {% endif %}
+            <hr>
         {% else %}
         <div class="alert alert-danger" role="alert">
             Không có thông báo này!

@@ -15,7 +15,7 @@
                 <div class="media text-muted pt-3">
                     <p class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
                         <strong class="d-block text-gray-dark">
-                            <a style="font-size: 18px" href="{% url 'send_notify' no.id %}">{{ no.heading | truncatechars:100 }}</a>
+                            <a style="font-size: 18px" href="{% url 'send_notify' no.id %}">{{ no.heading | truncatechars:50 }}</a>
                             <a href="{% url 'delete_notify' no.id %}">
                                 <button formaction="new" class="btn btn-primary" style="float: right; margin-top: 10px ;margin-left: 20px">Xóa</button></a>
                             <a href="{% url 'edit_notify' no.id %}">

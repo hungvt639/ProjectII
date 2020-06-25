@@ -20,6 +20,10 @@
                 <textarea readonly class="form-control" name="content" id="content"
                           rows="10">{{ notify.content }}</textarea>
             </div>
+            {% if notify.file %}
+        <a href="{{notify.file}}" target="_blank"><button type="button" class="btn btn-outline-dark">File đính kèm</button></a>
+        {% endif %}
+            <hr>
             <div class="form-group">
                     <label for="user_notify">Người nhận</label>
                     <select class="form-control" id="user_notify" name="user_notify">
@@ -46,6 +50,7 @@
         {% else %}
         <p class="text-left">Không có người nhận nào</p>
         {% endif %}
+
     </div>
 </main>
 

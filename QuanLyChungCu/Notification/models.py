@@ -7,6 +7,7 @@ class Notify(models.Model):
     manage_id = models.ForeignKey(User, on_delete=models.CASCADE, related_name="manage_id")
     heading = models.CharField(max_length=1000)
     content = models.TextField()
+    file = models.TextField(null=True, blank=True)
     status = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)

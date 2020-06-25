@@ -3,7 +3,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
 from .models import Notify, Notify_User
 from django.contrib.auth.mixins import LoginRequiredMixin
-# Create your views here.
+from django.core.files.storage import FileSystemStorage
 from django.views import View
 
 
@@ -31,6 +31,14 @@ class Create_Notify(LoginRequiredMixin, View):
                 notify.manage_id = request.user
                 notify.heading = request.POST["heading"]
                 notify.content = request.POST["content"]
+                if request.FILES['file']:
+                    file = request.FILES['file']
+                    filename = str(file)
+                    if filename[len(filename) - 4:len(filename)] == '.pdf':
+                        fs = FileSystemStorage()
+                        filename = fs.save(file.name, file)
+                        uploaded_file_url = fs.url(filename)
+                        notify.file = uploaded_file_url
                 notify.save()
                 return redirect('send_notify', id=notify.id)
             except Exception as e:
@@ -99,10 +107,19 @@ class Edit_Notify(LoginRequiredMixin, View):
                 notify = Notify.objects.get(pk=id)
                 notify.heading = request.POST['heading']
                 notify.content = request.POST['content']
+                if request.FILES['file']:
+                    file = request.FILES['file']
+                    filename = str(file)
+                    if filename[len(filename) - 4:len(filename)] == '.pdf':
+                        fs = FileSystemStorage()
+                        filename = fs.save(file.name, file)
+                        uploaded_file_url = fs.url(filename)
+                        notify.file = uploaded_file_url
                 notify.save()
                 return redirect('send_notify', id=id)
             except Exception as e:
-                return redirect("index_notify")
+                raise e
+                # return redirect("sos")
         else:
             return redirect("index_notify")
 
